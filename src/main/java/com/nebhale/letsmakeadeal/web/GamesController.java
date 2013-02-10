@@ -82,7 +82,8 @@ final class GamesController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{gameId}/doors", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE })
+    @RequestMapping(method = RequestMethod.GET, value = "/{gameId}/doors", 
+    		        produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE })
     ResponseEntity<DoorsResource> showDoors(@PathVariable Long gameId) throws GameDoesNotExistException {
         Game game = this.gameRepository.retrieve(gameId);
         DoorsResource resource = this.doorsResourceAssembler.toResource(game);
@@ -90,7 +91,7 @@ final class GamesController {
         return new ResponseEntity<DoorsResource>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{gameId}/doors/{doorId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+    @RequestMapping(method = RequestMethod.PUT, value = "/{gameId}/doors/{doorId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
         MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE })
     ResponseEntity<Void> modifyDoor(@PathVariable Long gameId, @PathVariable Long doorId, @RequestBody Map<String, String> body)
         throws MissingKeyException, GameDoesNotExistException, IllegalTransitionException, DoorDoesNotExistException {
